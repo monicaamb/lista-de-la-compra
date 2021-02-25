@@ -41,13 +41,23 @@
         <ul class="menu">
             <li v-for="producto in productos" class="menu-item">
                 <label class="form-checkbox">
-                    <input type="checkbox" :checked="producto.fields.Adquirido">
-                    <i class="form-icon"></i> {{ producto.fields.Nombre }}
+                    <input @click="actualizarAdquiridoEnAPI(producto.id, !producto.fields.Adquirido)" type="checkbox" :checked="producto.fields.Adquirido">
+                    <div>
+                        <i class="form-icon"></i> {{ producto.fields.Nombre }} <button
+                            @click="borrarProducto(producto.id)"
+                            class="btn btn-error">Borrar</button>
+                    </div>
                 </label>
+                <div class="form-group">
+                    <input @keypress.enter="actualizarProductoEnAPI(producto.id, productoActualizar)"
+                           v-model="productoActualizar"
+                           type="text">
+                </div>
                 <!-- menu divider -->
                 <span class="divider"></span>
             </li>
         </ul>
+        <div v-else class="loading"></div>
     </section>
 </main>
 </body>
